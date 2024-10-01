@@ -1,6 +1,6 @@
-import ConversationModel from "./conversation";
+import ConversationModel, { Prompt } from "./conversationModel";
 
-const findPrompt = async (id) => {
+const findPrompt = async (id: string) => {
   return ConversationModel.findById(id);
 };
 
@@ -8,16 +8,16 @@ const findConversation = async () => {
   return ConversationModel.find();
 };
 
-const createPrompt = async (text) => {
-  const newPrompt = new ConversationModel(text);
+const createPrompt = async (prompt: Prompt) => {
+  const newPrompt = new ConversationModel(prompt);
   return newPrompt.save();
 };
 
-const updatePrompt = async (id, text) => {
-  return ConversationModel.findByIdAndUpdate(id, text);
+const updatePrompt = async (id: string, text: string) => {
+  return ConversationModel.findByIdAndUpdate(id, { text: text }, { new: true });
 };
 
-const deletePrompt = async (id) => {
+const deletePrompt = async (id: string) => {
   return ConversationModel.findByIdAndDelete(id);
 };
 
