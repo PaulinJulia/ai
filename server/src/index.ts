@@ -3,7 +3,7 @@ import cors from "cors";
 import conversationRouter from "./routes/conversationRoute";
 
 const corsOptions = {
-  origin: "http://localhost:4000",
+  origin: "http://localhost:5173",
   credentials: true, // För att tillåta cookies och andra credentials
 };
 

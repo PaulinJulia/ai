@@ -1,0 +1,8 @@
+export type Prompt = {
+  id?: string;
+  muscleGroup: string;
+  duration: number;
+  fitnessLevel: string;
+  equipment: string[];
+  goal: string;
+};
