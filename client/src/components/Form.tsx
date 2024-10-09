@@ -1,21 +1,28 @@
 import { useState } from "react";
+import { WorkoutItem } from "./WorkoutItem";
+import { FormData, Plan } from "../types/types";
 
 export const Form = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     duration: 30,
     targetMuscle: "",
     fitnessLevel: "",
     goal: "",
     equipment: [] as string[],
   });
-  const [plan, setPlan] = useState({
+  const [workout, setWorkout] = useState<Plan>({
     id: "",
     muscleGroup: "",
     duration: 0,
     fitnessLevel: "",
     equipment: [],
     goal: "",
-    text: "",
+    workout: {
+      title: "",
+      duration: 0,
+      exercises: [],
+      advice: "",
+    },
   });
 
   const handleInputChange = (
@@ -33,7 +40,7 @@ export const Form = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          prompt: {
+          plan: {
             muscleGroup: formData.targetMuscle,
             duration: formData.duration,
             fitnessLevel: formData.fitnessLevel,
@@ -46,9 +53,9 @@ export const Form = () => {
         throw new Error("Network response not ok");
       }
       const data = await response.json();
-      console.log(data);
+      console.log(data.savedConversation);
 
-      setPlan(data.plan); // Antag att backend returnerar en nyckel "plan"
+      setWorkout(data.savedConversation);
     } catch (error) {
       if (error instanceof Error) {
         console.error("Error generating plan", error);
@@ -59,7 +66,6 @@ export const Form = () => {
   return (
     <div className="w-full max-w-2xl mx-auto bg-white p-4 rounded-lg shadow-md">
       <p className="mb-4">Skapa din personliga träningsplan</p>
-
       {/* Duration Slider */}
       <div className="mb-4">
         <label htmlFor="duration" className="block font-medium mb-2">
@@ -79,7 +85,6 @@ export const Form = () => {
         />
         <p className="text-right">{formData.duration} minuter</p>
       </div>
-
       {/* Target Muscle Select */}
       <div className="mb-4">
         <label htmlFor="targetMuscle" className="block font-medium mb-2">
@@ -98,7 +103,6 @@ export const Form = () => {
           <option value="Armar">Armar</option>
         </select>
       </div>
-
       {/* Fitness Level Select */}
       <div className="mb-4">
         <label htmlFor="fitnessLevel" className="block font-medium mb-2">
@@ -115,7 +119,6 @@ export const Form = () => {
           <option value="Avancerad">Avancerad</option>
         </select>
       </div>
-
       {/* Goal Select */}
       <div className="mb-4">
         <label htmlFor="goal" className="block font-medium mb-2">
@@ -133,7 +136,6 @@ export const Form = () => {
           <option value="Muskelökning">Muskelökning</option>
         </select>
       </div>
-
       {/* Equipment Checkboxes */}
       <div className="mb-4">
         <p className="font-medium mb-2">Tillgänglig utrustning</p>
@@ -165,7 +167,6 @@ export const Form = () => {
           ))}
         </div>
       </div>
-
       {/* Generate Button */}
       <button
         onClick={generatePlan}
@@ -174,9 +175,12 @@ export const Form = () => {
         Generera träningsplan
       </button>
 
-      {/* Display Plan */}
-      <h3 className="font-semibold mb-2">Din personliga träningsplan:</h3>
-      <p className="whitespace-pre-wrap">{plan.text}</p>
+      <h3 className="font-semibold mb-2">Ditt personliga träningspass:</h3>
+      {workout && workout.workout ? ( // Kontrollera att workout inte är undefined
+        <WorkoutItem workout={workout.workout} />
+      ) : (
+        <p>Inga träningspass tillgängliga.</p> // Meddelande om det inte finns något workout
+      )}
     </div>
   );
 };

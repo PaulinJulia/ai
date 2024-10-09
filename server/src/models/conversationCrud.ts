@@ -1,4 +1,4 @@
-import ConversationModel, { Prompt } from "./conversationModel";
+import ConversationModel, { Plan } from "./conversationModel";
 
 const findPrompt = async (id: string) => {
   return ConversationModel.findById(id);
@@ -8,7 +8,7 @@ const findConversation = async () => {
   return ConversationModel.find();
 };
 
-const createPrompt = async (prompt: Prompt) => {
+const createPrompt = async (prompt: Plan) => {
   const newPrompt = new ConversationModel(prompt);
   return newPrompt.save();
 };

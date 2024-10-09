@@ -7,7 +7,7 @@ import {
   deletePrompt,
 } from "../models/conversationCrud";
 import { openAiService } from "../services/openaiService";
-import { Prompt } from "../models/conversationModel"
+import { Plan, Workout } from "../models/conversationModel";
 
 // const conversationRouter = express.Router();
 
@@ -29,22 +29,24 @@ import { Prompt } from "../models/conversationModel"
 
 // POST /conversation
 export async function createConversation(request: Request, response: Response) {
-  const { prompt } = request.body;
-    const { muscleGroup, duration, fitnessLevel, equipment, goal } = prompt;
+  const { plan } = request.body;
+  const { muscleGroup, duration, fitnessLevel, equipment, goal } = plan;
 
   try {
-    const aiResponse = await openAiService(prompt);
-    const promptToSave: Prompt = {
+    const aiResponse = await openAiService(plan);
+    console.log(aiResponse);
+
+    const planToSave: Plan = {
       muscleGroup: muscleGroup,
       duration: duration,
       fitnessLevel: fitnessLevel,
       equipment: equipment,
       goal: goal,
-      text: aiResponse,
+      workout: aiResponse,
     };
-    const savedConversation = await createPrompt(promptToSave);
+    const savedConversation = await createPrompt(planToSave);
 
-    response.status(201).json({ plan: savedConversation});
+    response.status(201).json({ savedConversation });
   } catch (error) {
     console.error("Error fetching from OpenAI", error);
     response.status(500).json({ error: "Failed to process conversation." });

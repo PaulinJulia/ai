@@ -1,13 +1,78 @@
 import OpenAI from "openai";
-import { Prompt } from "../models/conversationModel";
+import { Plan } from "../models/conversationModel";
+import { Workout } from "../models/conversationModel";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-export async function openAiService(prompt: Prompt) {
+// function parseWorkoutFromText(aiResponse: string): Workout {
+//   // Dela upp AI-svaret i rader
+//   const lines = aiResponse.split("\n").filter((line) => line.trim() !== "");
+
+//   // Extrahera titel (kan justeras beroende på hur svaret är strukturerat)
+//   const title = lines[0]?.trim() || "Träningspass från AI";
+
+//   // Försök att hämta duration, här kan du justera för att extrahera från texten om nödvändigt
+//   const durationMatch = aiResponse.match(/(\d+)\s*minuter/);
+//   const duration = durationMatch ? parseInt(durationMatch[1]) : 30; // Använd 30 som standard
+
+//   // Extrahera övningar
+//   const exercises = lines.slice(1).map((line) => {
+//     const parts = line.split(":"); // Anta att övningar är avformatte som "Övning: x set x y reps"
+//     const name = parts[0]?.trim() || "Övning utan namn";
+
+//     // Hämta sets och repetitioner
+//     const setsRepsMatch = parts[1]?.match(/(\d+)\s*set\s*x\s*(\d+)/); // Exempel: "3 set x 12"
+//     const sets = setsRepsMatch ? parseInt(setsRepsMatch[1]) : undefined;
+//     const repetitions = setsRepsMatch ? parseInt(setsRepsMatch[2]) : undefined;
+
+//     return {
+//       name,
+//       sets,
+//       repetitions,
+//       explanation: parts[2]?.trim() || "Ingen förklaring angiven.", // Extra förklaring om den finns
+//     };
+//   });
+
+//   return {
+//     title,
+//     duration,
+//     exercises,
+//     advice: "Fokusera på rätt teknik.", // Här kan du också lägga till ett råd om det finns i svaret
+//   };
+// }
+function parseWorkoutFromText(aiResponse: string): Workout {
+  try {
+    // Logga AI-svaret för felsökning
+    console.log("AI response:", aiResponse);
+
+    // Trimma och städa svaret
+    const cleanedResponse = aiResponse
+      .trim()
+      .replace(/[\u0000-\u001F\u007F-\u009F]/g, "");
+
+    // Försök att parsa svaret som JSON
+    const workout = JSON.parse(cleanedResponse);
+
+    // Kontrollera att objektet har rätt struktur
+    if (!workout.title || !Array.isArray(workout.exercises)) {
+      throw new Error("Det inkommande objektet har inte rätt struktur.");
+    }
+
+    // Returnera det parsade workout-objektet
+    return workout;
+  } catch (error) {
+    console.error("Fel vid parsing av AI-svaret:", error);
+    console.error("Original AI response:", aiResponse); // Logga det ursprungliga svaret för att hjälpa till med felsökning
+    throw error;
+  }
+}
+
+export async function openAiService(prompt: Plan) {
   const { id, muscleGroup, duration, fitnessLevel, equipment, goal } = prompt;
+
   try {
     const completion = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
+      model: "gpt-4o-mini",
       messages: [
         // {
         //   role: "system",
@@ -45,23 +110,46 @@ export async function openAiService(prompt: Prompt) {
         // },
         {
           role: "system",
-          content: `Skapa en träningsplan för ${duration} minuter för att träna ${muscleGroup}. Träningsnivå: ${fitnessLevel}. Mål: ${goal}. Utrustning som är tillgänglig: ${
+          content: `Generera ett JSON-objekt för en träningsplan med följande format:
+      {
+        "title": string,
+        "duration": number,
+        "exercises": [
+          {
+            "name": string,
+            "explanation": string,
+            "sets": number,
+            "repetitions": number,
+            "duration": number
+          }
+        ],
+        "advice": string
+      }
+      Skapa ett träningspass för ${duration} minuter för att träna ${muscleGroup}. Anpassa efter träningsnivå: ${fitnessLevel}. Mål: ${goal}. Utrustning som är tillgänglig: ${
             equipment.length > 0
               ? equipment.join(", ")
               : "Ingen utrustning (kroppsviktsträning)"
-          }. Ge specifika övningar med antal set och repetitioner.`,
+          }. Svara endast med ett giltigt JSON-objekt utan extra text eller kommentarer.`,
         },
       ],
-      max_tokens: 300,
+      max_tokens: 500,
       temperature: 0.7,
     });
 
-    const aiResponse = completion.choices[0].message.content;
-    console.log("AI response:", aiResponse);
-    if (!aiResponse) {
-      throw new Error("AI response was null or undefined");
-    }
-    return aiResponse;
+const aiResponse = completion.choices[0].message.content;
+console.log("AI svar:", aiResponse);
+if (!aiResponse || typeof aiResponse !== "string") {
+  throw new Error("AI-svaret var null, undefined eller inte en sträng");
+}
+let workout;
+try {
+  workout = parseWorkoutFromText(aiResponse);
+} catch (error) {
+  console.error("Fel vid parsing av AI-svaret:", error);
+  throw error;
+}
+
+return workout;
   } catch (error) {
     console.error("Error fetching from OpenAi", error);
     throw error;
