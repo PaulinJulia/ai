@@ -14,13 +14,13 @@ import { Plan, Workout } from "../models/conversationModel";
 // GET /conversation
 export async function getConversation(request: Request, response: Response) {
   try {
-  const conversation = await findConversation();
-  response.status(201).json(conversation);
-    } catch (error) {
+    const conversation = await findConversation();
+    response.status(201).json(conversation);
+  } catch (error) {
     console.error("Error fetching", error);
     response.status(500).json({ error: "Failed to process conversation." });
   }
-};
+}
 
 // GET /conversation/:id
 // conversationRouter.get("/:id", async (request: Request, response: Response) => {
@@ -39,7 +39,7 @@ export async function createConversation(request: Request, response: Response) {
 
   try {
     const aiResponse = await openAiService(plan);
-    console.log(aiResponse);
+    // console.log(aiResponse);
 
     const planToSave: Plan = {
       muscleGroup: muscleGroup,

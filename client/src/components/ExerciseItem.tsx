@@ -1,12 +1,13 @@
 import { ExerciseItemProps } from "../types/types";
 
 export const ExerciseItem = ({ workout }: ExerciseItemProps) => {
+
+  
   return (
     <div>
-      <h4>{workout.title}</h4>
       <ul>
-        {workout.exercises.map((exercise) => (
-          <li key={workout.id}>
+        {workout?.exercises.map((exercise, index) => (
+          <li key={index}>
             <h5>{exercise.name}</h5>
             <p>{exercise.explanation}</p>
             <p>

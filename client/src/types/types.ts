@@ -21,6 +21,7 @@ export interface Workout {
   duration: number;
   exercises: Exercise[];
   advice?: string;
+  wisdom?:string
 }
 
 export interface Plan {

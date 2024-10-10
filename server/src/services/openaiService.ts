@@ -42,23 +42,16 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 // }
 function parseWorkoutFromText(aiResponse: string): Workout {
   try {
-    // Logga AI-svaret för felsökning
-    console.log("AI response:", aiResponse);
-
-    // Trimma och städa svaret
     const cleanedResponse = aiResponse
       .trim()
       .replace(/[\u0000-\u001F\u007F-\u009F]/g, "");
 
-    // Försök att parsa svaret som JSON
     const workout = JSON.parse(cleanedResponse);
 
-    // Kontrollera att objektet har rätt struktur
     if (!workout.title || !Array.isArray(workout.exercises)) {
       throw new Error("Det inkommande objektet har inte rätt struktur.");
     }
 
-    // Returnera det parsade workout-objektet
     return workout;
   } catch (error) {
     console.error("Fel vid parsing av AI-svaret:", error);
@@ -123,33 +116,34 @@ export async function openAiService(prompt: Plan) {
             "duration": number
           }
         ],
-        "advice": string
+        "advice": string,
+        "wisdom": string
       }
       Skapa ett träningspass för ${duration} minuter för att träna ${muscleGroup}. Anpassa efter träningsnivå: ${fitnessLevel}. Mål: ${goal}. Utrustning som är tillgänglig: ${
             equipment.length > 0
               ? equipment.join(", ")
               : "Ingen utrustning (kroppsviktsträning)"
-          }. Svara endast med ett giltigt JSON-objekt utan extra text eller kommentarer.`,
+          }. Ge visdomsord eller citat för varje träningsplan. Svara endast med ett giltigt JSON-objekt utan extra text eller kommentarer.`,
         },
       ],
-      max_tokens: 500,
+      max_tokens: 700,
       temperature: 0.7,
     });
 
-const aiResponse = completion.choices[0].message.content;
-console.log("AI svar:", aiResponse);
-if (!aiResponse || typeof aiResponse !== "string") {
-  throw new Error("AI-svaret var null, undefined eller inte en sträng");
-}
-let workout;
-try {
-  workout = parseWorkoutFromText(aiResponse);
-} catch (error) {
-  console.error("Fel vid parsing av AI-svaret:", error);
-  throw error;
-}
+    const aiResponse = completion.choices[0].message.content;
+    // console.log("AI svar:", aiResponse);
+    if (!aiResponse || typeof aiResponse !== "string") {
+      throw new Error("AI-svaret var null, undefined eller inte en sträng");
+    }
+    let workout;
+    try {
+      workout = parseWorkoutFromText(aiResponse);
+    } catch (error) {
+      console.error("Fel vid parsing av AI-svaret:", error);
+      throw error;
+    }
 
-return workout;
+    return workout;
   } catch (error) {
     console.error("Error fetching from OpenAi", error);
     throw error;

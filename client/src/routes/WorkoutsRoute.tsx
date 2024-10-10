@@ -37,8 +37,9 @@ const WorkoutsRoute = () => {
       {loading && <p>Laddar...</p>}
       {error && <p>Error: {error}</p>}
       <ul style={{ listStyleType: "none" }}>
-        {trainingSessions.map((session) => (
-          <li key={session.id} className="training-list">
+        {trainingSessions.map((session, index) => (
+          <li key={index} className="training-list">
+            <p>{session.workout?.wisdom}</p>
             <h4>{session.workout?.title || "Träningspass utan titel"}</h4>
             <p>Datum: {new Date(session.createdAt).toLocaleDateString()}</p>
             <p>Varaktighet: {session.duration} minuter</p>

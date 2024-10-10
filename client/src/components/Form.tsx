@@ -1,31 +1,15 @@
 import { useState } from "react";
-import { ExerciseItem } from "./ExerciseItem";
-import { FormData, Plan } from "../types/types";
+import { FormData } from "../types/types";
 import { useNavigate } from "react-router-dom";
 
 export const Form = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<FormData>({
     duration: 30,
     targetMuscle: "",
     fitnessLevel: "",
     goal: "",
     equipment: [] as string[],
-  });
-  const [workout, setWorkout] = useState<Plan>({
-    id: "",
-    muscleGroup: "",
-    duration: 0,
-    fitnessLevel: "",
-    equipment: [],
-    goal: "",
-    workout: {
-      title: "",
-      duration: 0,
-      exercises: [],
-      advice: "",
-    },
-    createdAt: ""
   });
 
   const handleInputChange = (
@@ -55,11 +39,11 @@ export const Form = () => {
       if (!response.ok) {
         throw new Error("Network response not ok");
       } else {
-      const data = await response.json();
-      console.log(data.savedConversation);
-
-      setWorkout(data.savedConversation);
-      navigate("/response", { replace: true });
+        const data = await response.json();
+        navigate("/response", {
+          state: { workout: data.savedConversation },
+          replace: true,
+        });
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -172,19 +156,12 @@ export const Form = () => {
           ))}
         </div>
       </div>
-      {/* Generate Button */}
       <button
         onClick={generatePlan}
         className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition"
       >
         Generera träningsplan
       </button>
-
-      {workout && workout.workout ? ( // Kontrollera att workout inte är undefined
-        <ExerciseItem workout={workout.workout} />
-      ) : (
-        <p>Inga träningspass tillgängliga.</p> // Meddelande om det inte finns något workout
-      )}
     </div>
   );
 };
