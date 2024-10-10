@@ -48,6 +48,7 @@ export interface Plan {
   equipment: string[];
   goal: string;
   workout?: Workout;
+  createdAt: Date;
 }
 
 // Mongoose Schema
@@ -68,7 +69,7 @@ const workoutSchema = new Schema({
   advice: { type: String },
 });
 
-const conversationSchema = new Schema({
+const planSchema = new Schema({
   _id: { type: Schema.Types.ObjectId, auto: true },
   muscleGroup: { type: String, required: true },
   duration: { type: Number, required: true },
@@ -76,11 +77,9 @@ const conversationSchema = new Schema({
   equipment: { type: [String], required: true },
   goal: { type: String, required: true },
   workout: { type: workoutSchema },
+  createdAt: { type: Date, default: Date.now },
 });
 
-const ConversationModel = mongoose.model<Plan>(
-  "Conversation",
-  conversationSchema
-);
+const PlanModel = mongoose.model<Plan>("Plan", planSchema);
 
-export default ConversationModel;
+export default PlanModel;

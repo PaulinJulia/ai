@@ -1,24 +1,24 @@
-import ConversationModel, { Plan } from "./conversationModel";
+import PlanModel, { Plan } from "./conversationModel";
 
 const findPrompt = async (id: string) => {
-  return ConversationModel.findById(id);
+  return PlanModel.findById(id);
 };
 
 const findConversation = async () => {
-  return ConversationModel.find();
+  return PlanModel.find();
 };
 
 const createPrompt = async (prompt: Plan) => {
-  const newPrompt = new ConversationModel(prompt);
+  const newPrompt = new PlanModel(prompt);
   return newPrompt.save();
 };
 
 const updatePrompt = async (id: string, text: string) => {
-  return ConversationModel.findByIdAndUpdate(id, { text: text }, { new: true });
+  return PlanModel.findByIdAndUpdate(id, { text: text }, { new: true });
 };
 
 const deletePrompt = async (id: string) => {
-  return ConversationModel.findByIdAndDelete(id);
+  return PlanModel.findByIdAndDelete(id);
 };
 
 export {

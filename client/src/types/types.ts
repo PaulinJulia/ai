@@ -31,8 +31,9 @@ export interface Plan {
   equipment: string[];
   goal: string;
   workout?: Workout;
+  createdAt: string,
 }
 
-export interface WorkoutItemProps {
+export interface ExerciseItemProps {
   workout: Workout;
 }

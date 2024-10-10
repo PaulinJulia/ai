@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { WorkoutItem } from "./WorkoutItem";
+import { ExerciseItem } from "./ExerciseItem";
 import { FormData, Plan } from "../types/types";
+import { useNavigate } from "react-router-dom";
 
 export const Form = () => {
+    const navigate = useNavigate();
   const [formData, setFormData] = useState<FormData>({
     duration: 30,
     targetMuscle: "",
@@ -23,6 +25,7 @@ export const Form = () => {
       exercises: [],
       advice: "",
     },
+    createdAt: ""
   });
 
   const handleInputChange = (
@@ -51,11 +54,13 @@ export const Form = () => {
       });
       if (!response.ok) {
         throw new Error("Network response not ok");
-      }
+      } else {
       const data = await response.json();
       console.log(data.savedConversation);
 
       setWorkout(data.savedConversation);
+      navigate("/response", { replace: true });
+      }
     } catch (error) {
       if (error instanceof Error) {
         console.error("Error generating plan", error);
@@ -175,9 +180,8 @@ export const Form = () => {
         Generera träningsplan
       </button>
 
-      <h3 className="font-semibold mb-2">Ditt personliga träningspass:</h3>
       {workout && workout.workout ? ( // Kontrollera att workout inte är undefined
-        <WorkoutItem workout={workout.workout} />
+        <ExerciseItem workout={workout.workout} />
       ) : (
         <p>Inga träningspass tillgängliga.</p> // Meddelande om det inte finns något workout
       )}

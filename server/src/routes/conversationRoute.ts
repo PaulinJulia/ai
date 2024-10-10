@@ -1,8 +1,12 @@
 import express from "express";
-import { createConversation } from "../controllers/conversationController";
+import {
+  getConversation,
+  createConversation,
+} from "../controllers/conversationController";
 
 const conversationRouter = express.Router();
 
+conversationRouter.get("/data", getConversation);
 conversationRouter.post("/conversation", createConversation);
 
 export default conversationRouter;

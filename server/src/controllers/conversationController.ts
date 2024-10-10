@@ -12,10 +12,15 @@ import { Plan, Workout } from "../models/conversationModel";
 // const conversationRouter = express.Router();
 
 // GET /conversation
-// conversationRouter.get("/", async (request: Request, response: Response) => {
-//   const conversation = await findConversation();
-//   response.json(conversation);
-// });
+export async function getConversation(request: Request, response: Response) {
+  try {
+  const conversation = await findConversation();
+  response.status(201).json(conversation);
+    } catch (error) {
+    console.error("Error fetching", error);
+    response.status(500).json({ error: "Failed to process conversation." });
+  }
+};
 
 // GET /conversation/:id
 // conversationRouter.get("/:id", async (request: Request, response: Response) => {
@@ -43,6 +48,7 @@ export async function createConversation(request: Request, response: Response) {
       equipment: equipment,
       goal: goal,
       workout: aiResponse,
+      createdAt: new Date(),
     };
     const savedConversation = await createPrompt(planToSave);
 
@@ -52,33 +58,6 @@ export async function createConversation(request: Request, response: Response) {
     response.status(500).json({ error: "Failed to process conversation." });
   }
 }
-// Hämta OpenAI:s svar
-// const completion = await openai.chat.completions.create({
-//   model: "gpt-4o-mini",
-//   messages: [
-//     { role: "system", content: "You are a helpful assistant." },
-//     { role: "user", content: prompt },
-//   ],
-// });
-
-// const aiResponse = completion.choices[0].message.content;
-
-// if (!aiResponse) {
-//   return response.status(500).json({ error: "No response from OpenAI." });
-// }
-
-// Spara användarens prompt och OpenAI:s svar
-// await createPrompt(prompt, "user");
-// const savedConversation = await createPrompt(aiResponse, "assistant");
-
-// response.status(201).json(savedConversation);
-//   } catch (error) {
-//     console.error("Error fetching from OpenAI", error);
-//     return response
-//       .status(500)
-//       .json({ error: "Failed to fetch response from OpenAI." });
-//   }
-// };
 
 // PUT /conversation/:id
 // conversationRouter.put("/:id", async (request: Request, response: Response) => {

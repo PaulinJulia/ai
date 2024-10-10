@@ -1,22 +1,21 @@
-import { WorkoutItemProps } from "../types/types";
+import { ExerciseItemProps } from "../types/types";
 
-export const WorkoutItem = ({ workout }: WorkoutItemProps) => {
+export const ExerciseItem = ({ workout }: ExerciseItemProps) => {
   return (
     <div>
       <h4>{workout.title}</h4>
-      <p>Varaktighet: {workout.duration} minuter</p>
-      <div>
+      <ul>
         {workout.exercises.map((exercise) => (
-          <div key={exercise.id}>
+          <li key={workout.id}>
             <h5>{exercise.name}</h5>
             <p>{exercise.explanation}</p>
             <p>
               Set: {exercise.sets}, Repetitioner: {exercise.repetitions},
               Varaktighet: {exercise.duration} sekunder
             </p>
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
       <p>{workout.advice}</p>
     </div>
   );
