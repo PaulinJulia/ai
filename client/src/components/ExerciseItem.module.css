@@ -1,0 +1,14 @@
+.wrapper {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.exercise-list {
+    background-color:var(--cream-orange);
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 30px;
+}

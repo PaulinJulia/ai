@@ -25,7 +25,7 @@ const router = createBrowserRouter([
         element: <CreateWorkoutRoute />,
       },
       {
-        path: "plan",
+        path: "workout",
         element: <WorkoutsRoute />,
       },
       {

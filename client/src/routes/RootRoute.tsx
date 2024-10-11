@@ -21,7 +21,7 @@ const RootRoute = () => {
               </Link>
             </li>
             <li>
-              <Link to="/plan" title="Träningsschema">
+              <Link to="/workout" title="Träningsschema">
                 Träningsschema
               </Link>
             </li>
@@ -32,6 +32,10 @@ const RootRoute = () => {
         <Outlet />
       </div>
       <footer>
+        <div className={style["contact"]}>
+          <p>Om BODY BALANCE</p>
+          <p>Kontakta oss</p>
+        </div>
         <ul className={style["social-media"]}>
           <li>
             <FaFacebookF />
@@ -43,10 +47,6 @@ const RootRoute = () => {
             <FaLinkedin />
           </li>
         </ul>
-        <div className={style["contact"]}>
-          <p>Om BODY BALANCE</p>
-          <p>Kontakta oss</p>
-        </div>
       </footer>
     </>
   );

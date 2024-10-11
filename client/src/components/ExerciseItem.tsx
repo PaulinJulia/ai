@@ -1,13 +1,14 @@
 import { ExerciseItemProps } from "../types/types";
+import style from "./ExerciseItem.module.css"
 
 export const ExerciseItem = ({ workout }: ExerciseItemProps) => {
 
   
   return (
     <div>
-      <ul>
+      <ul className={style["wrapper"]}>
         {workout?.exercises.map((exercise, index) => (
-          <li key={index}>
+          <li key={index} className={style["exercise-list"]}>
             <h5>{exercise.name}</h5>
             <p>{exercise.explanation}</p>
             <p>
@@ -17,7 +18,7 @@ export const ExerciseItem = ({ workout }: ExerciseItemProps) => {
           </li>
         ))}
       </ul>
-      <p>{workout.advice}</p>
+      <p>Råd:{workout.advice}</p>
     </div>
   );
 };

@@ -1,0 +1,66 @@
+.wrapper {
+  /* width: 500px;
+  height: 300px; */
+  background-image: url("../assets/image2.jpg");
+  animation: images 60s alternate-reverse infinite 3s ease-in-out;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  max-width: 80%;
+  margin: auto;
+}
+
+.training-planner {
+  text-align: center;
+  padding: 3rem 3rem 0.5rem 3rem;
+  font-size: 1.8rem;
+}
+.small-description {
+  text-align: center;
+  font-weight: bold;
+}
+
+.description {
+  text-align: center;
+  padding: 2rem 0rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.create-workout-button {
+  font-size: 1.2rem;
+  padding: 1rem 3rem;
+  border-radius: 30px;
+  background-color: var(--warm-yellow);
+  border: 0;
+  margin: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+@keyframes images {
+  0% {
+    background-image: url("../assets/image3.jpg");
+  }
+
+  33% {
+    background-image: url("../assets/image4.jpg");
+  }
+
+  66% {
+    background-image: url("../assets/image5.jpg");
+  }
+
+  100% {
+    background-image: url("../assets/image2.jpg");
+  }
+}

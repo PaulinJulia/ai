@@ -20,6 +20,7 @@ export const Form = () => {
   };
 
   const generatePlan = async () => {
+    navigate("/response", { state: { loading: true } });
     try {
       const response = await fetch(`http://localhost:4000/api/conversation`, {
         method: "POST",

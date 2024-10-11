@@ -1,0 +1,29 @@
+
+.title {
+  text-align: center;
+  padding: 1rem;
+}
+
+.training-list {
+  padding: 2rem;
+  background-color: var(--white-white);
+  list-style: none;
+  margin: auto;
+  margin-bottom: 2rem;
+  max-width: 70%;
+  border-radius: 30px;
+}
+
+.word-of-wisdom {
+  text-align: center;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-style: italic;
+  padding: 1rem;
+}
+
+/* .exercise-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+} */
