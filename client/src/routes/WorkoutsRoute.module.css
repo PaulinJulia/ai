@@ -1,16 +1,15 @@
-
 .title {
   text-align: center;
   padding: 1rem;
 }
 
 .training-list {
-  padding: 2rem;
+  padding: 2rem 1rem;
   background-color: var(--white-white);
   list-style: none;
   margin: auto;
   margin-bottom: 2rem;
-  max-width: 70%;
+  max-width: 60%;
   border-radius: 30px;
 }
 
@@ -18,12 +17,61 @@
   text-align: center;
   font-family: Georgia, "Times New Roman", Times, serif;
   font-style: italic;
+  padding: 0rem 2rem 0rem 2rem;
+}
+
+.workout-title {
+  font-size: 1.2rem;
+  text-align: center;
   padding: 1rem;
 }
 
-/* .exercise-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-} */
+.info-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding-bottom: 1rem;
+}
+.info-wrapper-one > p,
+.info-wrapper-two > p {
+  padding: 0rem 0rem 0.5rem 0rem;
+}
+
+.information {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.exercise-title {
+  font-size: 1rem;
+  padding: 0.5rem 2rem 1rem 2rem;
+}
+
+.warm-up,
+.cool-down {
+  font-size: 1rem;
+}
+
+.advice {
+  text-align: center;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-style: italic;
+  padding: 0rem 2rem;
+}
+
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.remove-button, .save-button, .workout-button {
+  width: 150px;
+  height: 50px;
+  font-size: 1rem;
+  border-radius: 30px;
+  background-color: var(--warm-yellow);
+  border: 0;
+  font-weight: bold;
+}

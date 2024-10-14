@@ -13,8 +13,9 @@ export interface Exercise {
 export interface Workout {
   id?: string;
   title: string;
-  duration: number;
+  warmUp: string;
   exercises: Exercise[];
+  coolDown: string;
   advice?: string;
   wisdom: string;
 }
@@ -43,8 +44,9 @@ const exerciseSchema = new Schema({
 const workoutSchema = new Schema({
   _id: { type: Schema.Types.ObjectId, auto: true },
   title: { type: String, required: true },
-  duration: { type: Number, required: true },
+  warmUp: { type: String, required: true },
   exercises: { type: [exerciseSchema], required: true },
+  coolDown: { type: String, required: true },
   advice: { type: String },
   wisdom: { type: String },
 });

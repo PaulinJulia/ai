@@ -41,25 +41,67 @@ const WorkoutsRoute = () => {
         <ul>
           {trainingSessions.map((session, index) => (
             <li key={index} className={style["training-list"]}>
-              <p className={style["word-of-wisdom"]}>
+              <div className={style["word-of-wisdom"]}>
                 {session.workout?.wisdom}
-              </p>
-              <h4>{session.workout?.title || "Träningspass utan titel"}</h4>
-              <p>Datum: {new Date(session.createdAt).toLocaleDateString()}</p>
-              <p>Varaktighet: {session.duration} minuter</p>
-              <p>Utrustning: {session.equipment.join(", ")}</p>
-              <p>Fitnessnivå: {session.fitnessLevel}</p>
-              <p>Mål: {session.goal}</p>
-              <p>Muskelgrupp: {session.muscleGroup}</p>
-
-              <h5>Övningar:</h5>
-              <div className={style["exercise-wrapper"]}>
-                {session.workout ? (
-                  <ExerciseItem workout={session.workout} />
-                ) : (
-                  <p>Inga övningar tillgängliga för detta pass.</p>
-                )}
               </div>
+              <h4 className={style["workout-title"]}>
+                {session.workout?.title}
+              </h4>
+              <div className={style["info-container"]}>
+                <div className={style["info-wrapper-one"]}>
+                  <p>
+                    Datum:{" "}
+                    <p className={style["information"]}>
+                      {new Date(session.createdAt).toLocaleDateString()}
+                    </p>
+                  </p>
+                  <p>
+                    Varaktighet:{" "}
+                    <p className={style["information"]}>
+                      {session.duration} minuter
+                    </p>
+                  </p>
+                  <p>
+                    Utrustning:{" "}
+                    <p className={style["information"]}>
+                      {session.equipment.join(", ")}
+                    </p>
+                  </p>
+                </div>
+                <div className={style["info-wrapper-two"]}>
+                  <p>
+                    Fitnessnivå:{" "}
+                    <p className={style["information"]}>
+                      {session.fitnessLevel}
+                    </p>
+                  </p>
+                  <p>
+                    Mål: <p className={style["information"]}>{session.goal}</p>
+                  </p>
+                  <p>
+                    Muskelgrupp:{" "}
+                    <p className={style["information"]}>
+                      {session.muscleGroup}
+                    </p>
+                  </p>
+                </div>
+              </div>
+              <p className={style["exercise-title"]}>
+                Uppvärmning:
+                <p className={style["warm-up"]}>{session.workout?.warmUp}</p>
+              </p>
+              {session.workout ? (
+                <ExerciseItem workout={session.workout} />
+              ) : (
+                <p>Inga övningar tillgängliga för detta pass.</p>
+              )}
+              <p className={style["exercise-title"]}>
+                Nedvarvning:
+                <p className={style["cool-down"]}>
+                  {session.workout?.coolDown}
+                </p>
+              </p>
+              <p className={style["advice"]}>Tips! {session.workout?.advice}</p>
             </li>
           ))}
         </ul>

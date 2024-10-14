@@ -1,14 +1,33 @@
-.wrapper {
-    list-style: none;
-    display: flex;
-    align-items: center;
+.exercise-wrapper {
+  list-style: none;
+  /* display: flex;
+    align-items: flex-start;
     justify-content: center;
-    flex-direction: column;
+    flex-direction: column; */
 }
 
 .exercise-list {
-    background-color:var(--cream-orange);
-    padding: 1rem;
-    margin: 1rem;
-    border-radius: 30px;
+  background-color: var(--cream-orange);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 30px;
+  width: 95%;
+}
+
+.exercise-name {
+  font-size: 1rem;
+}
+
+.explanation {
+  padding: 0.5rem 0rem;
+}
+
+.repetition {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.repetition > p {
+  padding: 0.2rem;
 }

@@ -18,10 +18,11 @@ export interface Exercise {
 export interface Workout {
   id?: string;
   title: string;
-  duration: number;
+  warmUp: string;
   exercises: Exercise[];
+  coolDown: string;
   advice?: string;
-  wisdom?:string
+  wisdom?: string;
 }
 
 export interface Plan {

@@ -106,7 +106,7 @@ export async function openAiService(prompt: Plan) {
           content: `Generera ett JSON-objekt för en träningsplan med följande format:
       {
         "title": string,
-        "duration": number,
+        "warmUp": string,
         "exercises": [
           {
             "name": string,
@@ -116,6 +116,7 @@ export async function openAiService(prompt: Plan) {
             "duration": number
           }
         ],
+        "coolDown": string
         "advice": string,
         "wisdom": string
       }
@@ -123,10 +124,10 @@ export async function openAiService(prompt: Plan) {
             equipment.length > 0
               ? equipment.join(", ")
               : "Ingen utrustning (kroppsviktsträning)"
-          }. Ge visdomsord eller citat för varje träningsplan. Svara endast med ett giltigt JSON-objekt utan extra text eller kommentarer.`,
+          }. Ge visdomsord eller citat för varje träningsplan. Ge förslag på börjande uppvärmning och avslutande nedvarvning som till exempel stretching. Svara endast med ett giltigt JSON-objekt utan extra text eller kommentarer.`,
         },
       ],
-      max_tokens: 700,
+      max_tokens: 800,
       temperature: 0.7,
     });
 
