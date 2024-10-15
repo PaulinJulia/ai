@@ -1,9 +1,10 @@
 import { Form } from "../components/Form"
+import style from "./CreateWorkoutRoute.module.css"
 
 const CreateWorkoutRoute = () => {
   return (
     <main>
-      <h2 className="text-2xl font-bold mb-4">Skapa unikt träningspass:</h2>
+      <h3 className={style["title"]}>Skapa ditt personliga träningspass:</h3>
       <Form />
     </main>
   );

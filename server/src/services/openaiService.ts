@@ -124,7 +124,7 @@ export async function openAiService(prompt: Plan) {
             equipment.length > 0
               ? equipment.join(", ")
               : "Ingen utrustning (kroppsviktsträning)"
-          }. Ge visdomsord eller citat för varje träningsplan. Ge förslag på börjande uppvärmning och avslutande nedvarvning som till exempel stretching. Svara endast med ett giltigt JSON-objekt utan extra text eller kommentarer.`,
+          }. Ge visdomsord eller citat för varje träningsplan. Ge förslag på börjande uppvärmning och avslutande nedvarvning. Svara endast med ett giltigt JSON-objekt utan extra text eller kommentarer.`,
         },
       ],
       max_tokens: 800,

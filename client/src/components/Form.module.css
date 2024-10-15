@@ -1,0 +1,71 @@
+.form-wrapper {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  background-color: var(--white-white);
+  border-radius: 30px;
+  padding: 1rem 2rem;
+}
+
+.choices-wrapper-one {
+  display: flex;
+  gap: 6rem;
+  margin-bottom: 1rem;
+}
+
+.option-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.choices-wrapper-two {
+  display: flex;
+  flex-direction: row;
+  gap: 6rem;
+}
+
+.label {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.select {
+  padding: 0.2rem;
+  margin-top: 0.2rem;
+}
+
+.select,
+.select > option {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.create-workout-button {
+  font-size: 1.2rem;
+  padding: 1rem 3rem;
+  border-radius: 30px;
+  background-color: var(--warm-yellow);
+  border: 0;
+  margin: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+.equipment {
+  padding: 1rem;
+}
+
+.checkbox {
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.checkbox-options {
+  padding: 0.5rem;
+  font-size: 1.2rem;
+}

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FormData } from "../types/types";
 import { useNavigate } from "react-router-dom";
+import style from "./Form.module.css";
 
 export const Form = () => {
   const navigate = useNavigate();
@@ -54,82 +55,93 @@ export const Form = () => {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto bg-white p-4 rounded-lg shadow-md">
-      <p className="mb-4">Skapa din personliga träningsplan</p>
-      {/* Duration Slider */}
-      <div className="mb-4">
-        <label htmlFor="duration" className="block font-medium mb-2">
-          Träningstid (minuter)
-        </label>
-        <input
-          type="range"
-          id="duration"
-          min={10}
-          max={120}
-          step={5}
-          value={formData.duration}
-          onChange={(e) =>
-            handleInputChange("duration", Number(e.target.value))
-          }
-          className="w-full"
-        />
-        <p className="text-right">{formData.duration} minuter</p>
-      </div>
-      {/* Target Muscle Select */}
-      <div className="mb-4">
-        <label htmlFor="targetMuscle" className="block font-medium mb-2">
-          Målmuskel
-        </label>
-        <select
-          id="targetMuscle"
-          onChange={(e) => handleInputChange("targetMuscle", e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded"
-        >
-          <option value="">Välj målmuskel</option>
-          <option value="Bröst">Bröst</option>
-          <option value="Rygg">Rygg</option>
-          <option value="Ben">Ben</option>
-          <option value="Axlar">Axlar</option>
-          <option value="Armar">Armar</option>
-        </select>
+    <div className={style["form-wrapper"]}>
+      <div className={style["choices-wrapper-one"]}>
+        {/* Duration Slider */}
+        <div className={style["option-wrapper"]}>
+          <label htmlFor="duration" className={style["label"]}>
+            Träningstid (minuter):
+          </label>
+          <input
+            type="range"
+            id="duration"
+            min={10}
+            max={120}
+            step={5}
+            value={formData.duration}
+            onChange={(e) =>
+              handleInputChange("duration", Number(e.target.value))
+            }
+          />
+          <p>{formData.duration} minuter</p>
+        </div>
+        {/* Target Muscle Select */}
+        <div className={style["option-wrapper"]}>
+          <label htmlFor="targetMuscle" className={style["label"]}>
+            Målmuskel:
+          </label>
+          <select
+            id="targetMuscle"
+            className={style["select"]}
+            defaultValue=""
+            onChange={(e) => handleInputChange("targetMuscle", e.target.value)}
+          >
+            <option value="" disabled>
+              Välj muskelgrupp
+            </option>
+            <option value="Bröst">Bröst</option>
+            <option value="Rygg">Rygg</option>
+            <option value="Ben">Ben</option>
+            <option value="Axlar">Axlar</option>
+            <option value="Armar">Armar</option>
+          </select>
+        </div>
       </div>
       {/* Fitness Level Select */}
-      <div className="mb-4">
-        <label htmlFor="fitnessLevel" className="block font-medium mb-2">
-          Konditionsnivå
-        </label>
-        <select
-          id="fitnessLevel"
-          onChange={(e) => handleInputChange("fitnessLevel", e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded"
-        >
-          <option value="">Välj din konditionsnivå</option>
-          <option value="Nybörjare">Nybörjare</option>
-          <option value="Medel">Medel</option>
-          <option value="Avancerad">Avancerad</option>
-        </select>
-      </div>
-      {/* Goal Select */}
-      <div className="mb-4">
-        <label htmlFor="goal" className="block font-medium mb-2">
-          Träningsmål
-        </label>
-        <select
-          id="goal"
-          onChange={(e) => handleInputChange("goal", e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded"
-        >
-          <option value="">Välj ditt träningsmål</option>
-          <option value="Styrka">Styrka</option>
-          <option value="Uthållighet">Uthållighet</option>
-          <option value="Viktminskning">Viktminskning</option>
-          <option value="Muskelökning">Muskelökning</option>
-        </select>
+      <div className={style["choices-wrapper-two"]}>
+        <div className={style["option-wrapper"]}>
+          <label htmlFor="fitnessLevel" className={style["label"]}>
+            Konditionsnivå:
+          </label>
+          <select
+            id="fitnessLevel"
+            className={style["select"]}
+            defaultValue=""
+            onChange={(e) => handleInputChange("fitnessLevel", e.target.value)}
+          >
+            <option value="" disabled>
+              Välj din konditionsnivå
+            </option>
+            <option value="Nybörjare">Nybörjare</option>
+            <option value="Medel">Medel</option>
+            <option value="Avancerad">Avancerad</option>
+          </select>
+        </div>
+        {/* Goal Select */}
+        <div className={style["option-wrapper"]}>
+          <label htmlFor="goal" className={style["label"]}>
+            Träningsmål:
+          </label>
+          <select
+            id="goal"
+            className={style["select"]}
+            defaultValue=""
+            onChange={(e) => handleInputChange("goal", e.target.value)}
+          >
+            <option value="" disabled>
+              Välj ditt träningsmål
+            </option>
+            <option value="Styrka">Styrka</option>
+            <option value="Uthållighet">Uthållighet</option>
+            <option value="Viktminskning">Viktminskning</option>
+            <option value="Muskelökning">Muskelökning</option>
+          </select>
+        </div>
       </div>
       {/* Equipment Checkboxes */}
-      <div className="mb-4">
-        <p className="font-medium mb-2">Tillgänglig utrustning</p>
-        <div className="space-y-2">
+      <div>
+        <p className={style["label"]}>Tillgänglig utrustning:</p>
+        <div className={style["equipment"]}>
           {[
             "Hantlar",
             "Skivstång",
@@ -138,9 +150,10 @@ export const Form = () => {
             "Ingen utrustning",
           ].map((item) => (
             <div key={item}>
-              <label className="flex items-center space-x-2">
+              <label>
                 <input
                   type="checkbox"
+                  className={style["checkbox"]}
                   value={item}
                   onChange={(e) =>
                     handleInputChange(
@@ -151,17 +164,14 @@ export const Form = () => {
                     )
                   }
                 />
-                <span>{item}</span>
+                <span className={style["checkbox-options"]}>{item}</span>
               </label>
             </div>
           ))}
         </div>
       </div>
-      <button
-        onClick={generatePlan}
-        className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition"
-      >
-        Generera träningsplan
+      <button title="Skapa träningspass" onClick={generatePlan} className={style["create-workout-button"]}>
+        Skapa träningspass
       </button>
     </div>
   );

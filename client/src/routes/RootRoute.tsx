@@ -7,14 +7,14 @@ const RootRoute = () => {
   return (
     <>
       <header className={style["header"]}>
-        <div className={style["top-link-wrapper"]}>
+        <div className={style["home-link-wrapper"]}>
           <Link to="/" title="Home" className={style["title"]}>
             <GiBodyBalance />
             <p>BODY BALANCE</p>
           </Link>
         </div>
         <nav>
-          <ul className={style["bottom-link-wrapper"]}>
+          <ul className={style["link-wrapper"]}>
             <li>
               <Link to="/createworkout" title="Skapa träningspass">
                 Skapa träningspass
@@ -31,7 +31,7 @@ const RootRoute = () => {
       <div id="detail">
         <Outlet />
       </div>
-      <footer>
+      <footer className={style["footer"]}>
         <div className={style["contact"]}>
           <p>Om BODY BALANCE</p>
           <p>Kontakta oss</p>

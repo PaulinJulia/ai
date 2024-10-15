@@ -11,7 +11,7 @@ const HomeRoute = () => {
             Personliga träningspass med AI.
           </p>
           <p className={style["description"]}>
-            Få skräddarsydda och inspirerande träningspass. Med hjälp av vår AI
+            Få skräddarsydda och inspirerande träningspass. Med hjälp av AI
             skapar vi unika träningsförslag som anpassas efter din nivå, mål och
             preferenser oavsett om du vill bygga muskler, förbättra din
             kondition eller bara hålla dig i form. Slipp gissa vad du ska träna
