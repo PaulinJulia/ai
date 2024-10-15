@@ -21,6 +21,12 @@ Create a .env file in the server directory and add the following variables:
 MONGODB_URI=<your-connection>
 OPENAI_API_KEY=<your-key>
 
+Frontend:
+cd client
+npm run dev
+
+Backend:
+cd server
 npm run dev
 ```
 
