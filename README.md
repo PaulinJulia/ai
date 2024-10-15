@@ -1,11 +1,11 @@
 # AI-tjänst
 
 BODY BALANCE - Your Workout Planner  
-Personalized workouts with AI. Get tailored and inspiring workout sessions. With the help of our AI, we create unique workout suggestions that are customized to your level, goals, and preferences—whether you're looking to build muscle, improve your endurance, or simply stay fit. No more guessing what to train; let the workout coach guide you. All you need to do is choose how you want to train, and we'll take care of the rest!
+Personalized workouts with AI. Get tailored and inspiring workout sessions. With the help of AI, we create unique workout suggestions that are customized to your level, goals, and preferences—whether you're looking to build muscle, improve your endurance, or simply stay fit. No more guessing what to train; let the workout coach guide you. All you need to do is choose how you want to train, and we'll take care of the rest!
 
 Who is the target group? People who are familiar with working out but want inspiration, a more structured or personalized training plan.
 
-BODY BALANCE promotes a positive, safe and inclusive environment for all users. We avoid pushing extreme fitness goals or unhealthy body ideals, but instead focus on sustainable health and well-being. With the creativity of AI, workouts are customized to meet each individual's unique needs. The platform is in a user-friendly design to cater for a fast quick and easy result.
+BODY BALANCE promotes a positive and inclusive environment for all users. We avoid pushing extreme fitness goals or unhealthy body ideals, but instead focus on sustainable health and well-being. With the creativity of AI, workouts are customized to meet each individual's unique needs. The platform is in a user-friendly design to accommodate a quick and easy use.
 
 ## How to install
 
@@ -73,9 +73,6 @@ npm run dev
 #### AI Integration
 
 - OpenAI - A library for interacting with OpenAI's GPT models, used to integrate modern AI capabilities into your application, such as generating text or completing tasks with AI-powered responses.
-
-## Usage
-
 
 
 ## About

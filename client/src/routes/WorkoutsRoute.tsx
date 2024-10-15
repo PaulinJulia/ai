@@ -36,10 +36,10 @@ const WorkoutsRoute = () => {
 
   return (
     <main>
+      <h3 className={style["title"]}>Dina träningspass:</h3>
+      {loading && <p>Laddar...</p>}
+      {error && <p>Error: {error}</p>}
       <div className={style["container"]}>
-        <h3 className={style["title"]}>Dina träningspass:</h3>
-        {loading && <p>Laddar...</p>}
-        {error && <p>Error: {error}</p>}
         <ul>
           {trainingSessions.map((session, index) => (
             <li key={index} className={style["training-list"]}>
@@ -53,11 +53,11 @@ const WorkoutsRoute = () => {
                 <div className={style["favortie-delete-icon-wrapper"]}>
                   <MdFavoriteBorder
                     title="Favorit"
-                    className={style["favortie-delete-icon"]}
+                    className={style["favortie-icon"]}
                   />
                   <MdDelete
                     title="Ta bort"
-                    className={style["favortie-delete-icon"]}
+                    className={style["delete-icon"]}
                   />
                 </div>
               </div>

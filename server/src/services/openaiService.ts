@@ -4,42 +4,6 @@ import { Workout } from "../models/conversationModel";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-// function parseWorkoutFromText(aiResponse: string): Workout {
-//   // Dela upp AI-svaret i rader
-//   const lines = aiResponse.split("\n").filter((line) => line.trim() !== "");
-
-//   // Extrahera titel (kan justeras beroende på hur svaret är strukturerat)
-//   const title = lines[0]?.trim() || "Träningspass från AI";
-
-//   // Försök att hämta duration, här kan du justera för att extrahera från texten om nödvändigt
-//   const durationMatch = aiResponse.match(/(\d+)\s*minuter/);
-//   const duration = durationMatch ? parseInt(durationMatch[1]) : 30; // Använd 30 som standard
-
-//   // Extrahera övningar
-//   const exercises = lines.slice(1).map((line) => {
-//     const parts = line.split(":"); // Anta att övningar är avformatte som "Övning: x set x y reps"
-//     const name = parts[0]?.trim() || "Övning utan namn";
-
-//     // Hämta sets och repetitioner
-//     const setsRepsMatch = parts[1]?.match(/(\d+)\s*set\s*x\s*(\d+)/); // Exempel: "3 set x 12"
-//     const sets = setsRepsMatch ? parseInt(setsRepsMatch[1]) : undefined;
-//     const repetitions = setsRepsMatch ? parseInt(setsRepsMatch[2]) : undefined;
-
-//     return {
-//       name,
-//       sets,
-//       repetitions,
-//       explanation: parts[2]?.trim() || "Ingen förklaring angiven.", // Extra förklaring om den finns
-//     };
-//   });
-
-//   return {
-//     title,
-//     duration,
-//     exercises,
-//     advice: "Fokusera på rätt teknik.", // Här kan du också lägga till ett råd om det finns i svaret
-//   };
-// }
 function parseWorkoutFromText(aiResponse: string): Workout {
   try {
     const cleanedResponse = aiResponse
@@ -124,7 +88,7 @@ export async function openAiService(prompt: Plan) {
             equipment.length > 0
               ? equipment.join(", ")
               : "Ingen utrustning (kroppsviktsträning)"
-          }. Ge visdomsord eller citat för varje träningsplan. Ge förslag på börjande uppvärmning och avslutande nedvarvning. Svara endast med ett giltigt JSON-objekt utan extra text eller kommentarer.`,
+          }. Ge ett unikt visdomsord eller citat för varje träningsplan. Ge förslag på börjande uppvärmning och avslutande nedvarvning. Undvik att föreslå samma övningar och råd från tidigare förslagen. Svara endast med ett giltigt JSON-objekt utan extra text eller kommentarer.`,
         },
       ],
       max_tokens: 800,
@@ -150,13 +114,3 @@ export async function openAiService(prompt: Plan) {
     throw error;
   }
 }
-
-// app.get("/question", async (req: Request, res: Response) => {
-//   console.log("Hej från route /question");
-
-//   const completion = await openai.chat.completions.create({
-//     messages: [{ role: "system", content: "Vad är världens högsta berg?" }],
-//     model: "gpt-3.5-turbo",
-//   });
-//   console.log(completion.choices);
-// });

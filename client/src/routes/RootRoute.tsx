@@ -33,18 +33,18 @@ const RootRoute = () => {
       </div>
       <footer className={style["footer"]}>
         <div className={style["contact"]}>
-          <p>Om BODY BALANCE</p>
-          <p>Kontakta oss</p>
+          <p title="Om Body Balance">Om BODY BALANCE</p>
+          <p title="Kontakta oss">Kontakta oss</p>
         </div>
         <ul className={style["social-media"]}>
           <li>
-            <FaFacebookF />
+            <FaFacebookF title="Facebook" />
           </li>
           <li>
-            <FaInstagram />
+            <FaInstagram title="Instagram" />
           </li>
           <li>
-            <FaLinkedin />
+            <FaLinkedin title="LinkedIn" />
           </li>
         </ul>
       </footer>

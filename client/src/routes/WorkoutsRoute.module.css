@@ -1,3 +1,7 @@
+.container {
+  padding-bottom: 2rem;
+}
+
 .title {
   text-align: center;
   padding: 1rem;
@@ -7,7 +11,8 @@
   padding: 2rem 1rem;
   background-color: var(--white-white);
   list-style: none;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: 2rem;
   width: 80%;
   border-radius: 30px;
@@ -26,11 +31,16 @@
   align-items: center;
 }
 
-.favortie-delete-icon {
+.favortie-icon,
+.delete-icon {
   width: 1.5rem;
   height: 1.5rem;
   padding: 0rem 0.5rem;
   cursor: pointer;
+}
+
+.delete-icon > path:hover {
+  color: red;
 }
 
 .workout-title {
@@ -53,6 +63,7 @@
 .information {
   font-size: 1rem;
   font-weight: bold;
+  padding-bottom: 0.5rem;
 }
 
 .exercise-title {
@@ -75,8 +86,7 @@
 /* RESPONSEROUTE */
 .loader {
   text-align: center;
-  margin-top: 2rem;
-  padding: 3rem;
+  padding: 5rem;
 }
 
 .buttons {
@@ -98,4 +108,11 @@
   font-weight: bold;
   margin: 1rem;
   cursor: pointer;
+}
+
+.back-button:hover,
+.save-button:hover,
+.regenerate-button:hover {
+  transition: transform 0.2s ease-in;
+  transform: scale(1.1);
 }
