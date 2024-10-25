@@ -26,7 +26,7 @@ export interface Workout {
 }
 
 export interface Plan {
-  id?: string;
+  _id?: string;
   muscleGroup: string;
   duration: number;
   fitnessLevel: string;

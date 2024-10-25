@@ -4,7 +4,7 @@ import {
   findConversation,
   createPrompt,
   updatePrompt,
-  deletePrompt,
+  deleteWorkout,
 } from "../models/conversationCrud";
 import { openAiService } from "../services/openaiService";
 import { Plan, Workout } from "../models/conversationModel";
@@ -50,9 +50,36 @@ export async function createConversation(request: Request, response: Response) {
       workout: aiResponse,
       createdAt: new Date(),
     };
-    const savedConversation = await createPrompt(planToSave);
+    // const savedConversation = await createPrompt(planToSave);
+    console.log(planToSave);
 
-    response.status(201).json({ savedConversation });
+    response.status(201).json({ planToSave });
+  } catch (error) {
+    console.error("Error fetching from OpenAI", error);
+    response.status(500).json({ error: "Failed to process conversation." });
+  }
+}
+
+// POST /conversation
+export async function saveWorkout(request: Request, response: Response) {
+  const { plan } = request.body;
+  const { muscleGroup, duration, fitnessLevel, equipment, goal } = plan;
+
+  try {
+    // const planToSave: Plan = {
+    //   muscleGroup: muscleGroup,
+    //   duration: duration,
+    //   fitnessLevel: fitnessLevel,
+    //   equipment: equipment,
+    //   goal: goal,
+    //   workout: aiResponse,
+    //   createdAt: new Date(),
+    // };
+    const savedConversation = await createPrompt(plan);
+
+    response
+      .status(201)
+      .json(`Workout saved successfully! ${savedConversation}`);
   } catch (error) {
     console.error("Error fetching from OpenAI", error);
     response.status(500).json({ error: "Failed to process conversation." });
@@ -66,7 +93,17 @@ export async function createConversation(request: Request, response: Response) {
 // });
 
 // DELETE /conversation/:id
-// conversationRouter.delete("/:id", async (request: Request, response: Response) => {
-//   await deletePrompt(request.params.id);
-//   response.status(204).end();
-// });
+export async function deletePlan(request: Request, response: Response) {
+  const id = request.params.id;
+  try {
+    const deleted = await deleteWorkout(id);
+    if (deleted) {
+      response.status(204).end();
+    } else {
+      response.status(404).json({ error: "Workout not found." });
+    }
+  } catch (error) {
+    console.error("Error remove workout", error);
+    response.status(500).json({ error: "Failed to delete workout." });
+  }
+}

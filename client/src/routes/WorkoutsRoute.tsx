@@ -10,6 +10,33 @@ const WorkoutsRoute = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const removeWorkout = async (id: string | undefined) => {
+    if (!id) {
+      console.error("Error: Workout ID is undefined");
+      return;
+    }
+    try {
+      const response = await axios.delete(
+        `http://localhost:4000/api/removeWorkout/${id}`
+      );
+      if (response.status === 204) {
+        setTrainingSessions((prevSessions) =>
+          prevSessions.filter((session) => session._id !== id)
+        );
+        // console.log("Workout successfully removed");
+      } else {
+        console.error(
+          "Failed to remove workout: Unexpected response",
+          response
+        );
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error("Error generating plan", error);
+      }
+    }
+  };
+
   useEffect(() => {
     const fetchTrainingSessions = async () => {
       try {
@@ -58,6 +85,7 @@ const WorkoutsRoute = () => {
                   <MdDelete
                     title="Ta bort"
                     className={style["delete-icon"]}
+                    onClick={() => removeWorkout(session._id)}
                   />
                 </div>
               </div>

@@ -17,7 +17,7 @@ const updatePrompt = async (id: string, text: string) => {
   return PlanModel.findByIdAndUpdate(id, { text: text }, { new: true });
 };
 
-const deletePrompt = async (id: string) => {
+const deleteWorkout = async (id: string) => {
   return PlanModel.findByIdAndDelete(id);
 };
 
@@ -26,5 +26,5 @@ export {
   findConversation,
   createPrompt,
   updatePrompt,
-  deletePrompt,
+  deleteWorkout,
 };

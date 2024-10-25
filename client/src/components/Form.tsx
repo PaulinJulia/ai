@@ -21,6 +21,16 @@ export const Form = () => {
   };
 
   const generatePlan = async () => {
+    if (!formData.fitnessLevel) {
+      alert("Vänligen välj konditionsnivå.");
+      return;
+    } else if (!formData.targetMuscle) {
+      alert("Vänligen välj muskelgrupp.");
+      return;
+    } else if (!formData.goal) {
+      alert("Vänligen välj träningsmål.");
+      return;
+    }
     navigate("/response", { state: { loading: true } });
     try {
       const response = await fetch(`http://localhost:4000/api/conversation`, {
@@ -42,8 +52,9 @@ export const Form = () => {
         throw new Error("Network response not ok");
       } else {
         const data = await response.json();
+
         navigate("/response", {
-          state: { workout: data.savedConversation },
+          state: { workout: data.planToSave },
           replace: true,
         });
       }
@@ -78,7 +89,7 @@ export const Form = () => {
         {/* Target Muscle Select */}
         <div className={style["option-wrapper"]}>
           <label htmlFor="targetMuscle" className={style["label"]}>
-            Målmuskel:
+            Muskelgrupp:
           </label>
           <select
             id="targetMuscle"
@@ -170,7 +181,11 @@ export const Form = () => {
           ))}
         </div>
       </div>
-      <button title="Skapa träningspass" onClick={generatePlan} className={style["create-workout-button"]}>
+      <button
+        title="Skapa träningspass"
+        onClick={generatePlan}
+        className={style["create-workout-button"]}
+      >
         Skapa träningspass
       </button>
     </div>

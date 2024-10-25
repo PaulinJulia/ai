@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { ExerciseItem } from "../components/ExerciseItem";
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import style from "./WorkoutsRoute.module.css";
 import creatures from "../assets/creatures.gif";
+import axios from "axios";
 
 const ResponseRoute = () => {
   //   const [error, setError] = useState<string | null>(null);
@@ -14,15 +15,26 @@ const ResponseRoute = () => {
     loading: true,
   };
 
-  useEffect(() => {
-    if (!workout) {
-      //   setError("Ingen träningsplan hittades.");
-    }
-  }, [workout]);
-
-  const savePlan = () => {
+  const savePlan = async () => {
     navigate("/workout", { state: { loading: true } });
-    //TO DO: Spara mot databasen
+
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/api/saveWorkout",
+        {
+          plan: workout,
+        }
+      );
+      const savedWorkout = await response.data;
+      navigate("/workout", {
+        state: { workout: savedWorkout },
+        replace: true,
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error("Error generating plan", error);
+      }
+    }
   };
 
   const regeneratePlan = async () => {
@@ -48,7 +60,7 @@ const ResponseRoute = () => {
       } else {
         const data = await response.json();
         navigate("/response", {
-          state: { workout: data.savedConversation },
+          state: { workout: data.planToSave },
           replace: true,
         });
       }
